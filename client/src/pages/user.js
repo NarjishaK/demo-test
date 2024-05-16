@@ -28,7 +28,7 @@ function Update() {
       );
       console.log(response.data);
       alert("User created");
-      window.location.href = '/update';
+      window.location.href = '/userlist';
     } catch (err) {
       console.log("An error occurred");
       alert("Failed Registration.");

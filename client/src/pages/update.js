@@ -1,50 +1,103 @@
-import React, { useState } from 'react';
-import "./user.css"
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import "./user.css";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
 
-function Update() {
-  // const users = [
-  //   { name: 'John Doe', phone: '123-456-7890', email: 'john@example.com' },
-  //   { name: 'Jane Smith', phone: '987-654-3210', email: 'jane@example.com' },
-  //   { name: 'Bob Johnson', phone: '555-123-4567', email: 'bob@example.com' },
-  // ];
-  const [users,setUsers]=useState([])
+function UpdateUser() {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-  const handleUpdate = async() => {
-    try{
-     const response = await axios.get("http://localhost:7001/user/user")
-     
-    }catch(err){
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get(`http://localhost:7001/user/edituser/${id}`);
+        const user = response.data;
+        setUsername(user.username);
+        setEmail(user.email);
+        setPhone(user.phone);
+        setPassword(user.password);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchUser();
+  }, [id]);
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    const requestData = { username, phone, email, password };
+    try {
+      const response = await axios.put(`http://localhost:7001/user/updateuser/${id}`, requestData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      alert("User updated");
+      navigate("/userlist");
+    } catch (err) {
       console.log(err);
+      alert("Update failed");
     }
   };
 
   return (
-    <div className="table-wrapper">
-      <table className="user-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user, index) => (
-            <tr key={index}>
-              <td>{user.name}</td>
-              <td>{user.phone}</td>
-              <td>{user.email}</td>
-              <td>
-                <button className="update-button" onClick={() => handleUpdate(user)}>Update</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="update-page">
+      <meta charSet="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Update User</title>
+      <div className="wrapper">
+        <form onSubmit={handleUpdate}>
+          <h2>Update User</h2>
+          <div className="input-field">
+            <input
+              type="text"
+              value={username}
+              placeholder="Enter your Name"
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+          <div className="input-field">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter Your Email"
+              required
+            />
+          </div>
+          <div className="input-field">
+            <input
+              type="number"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="Enter Your Number"
+              required
+            />
+          </div>
+          <div className="input-field">
+            <input
+              type="password"
+              value={password}
+              placeholder="Enter your password"
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit">Update</button>
+          <div className="register">
+            <p>
+              Don't have an account? <a href="#">Register</a>
+            </p>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
 
-export default Update;
+export default UpdateUser;
