@@ -15,64 +15,64 @@ Before you begin, ensure you have the following installed on your system:
 - MongoDB (ensure it's running on the default port 27017)
 
 ## Setup Instructions
-1. *Clone the Repository*
+1. **Clone the Repository**
 
-    bash
+    ```bash
     git clone https://github.com/NarjishaK/demo-test.git
     cd project
-    
+    ```
 
-2. *Setup Client*
+2. **Setup Client**
 
     Navigate to the client directory and install dependencies:
 
-    bash
+    ```bash
     cd client
     npm install
-    
+    ```
 
-3. *Setup Server*
+3. **Setup Server**
 
     Navigate to the server directory and install dependencies:
 
-    bash
+    ```bash
     cd ../server
     npm install
-    
+    ```
 
-4. *Start MongoDB*
+4. **Start MongoDB**
 
     Ensure MongoDB is running on its default port (27017). If you haven't started it yet, you can do so by running:
 
-    bash
+    ```bash
     mongod
-    
+    ```
 
-5. *Start the Server*
+5. **Start the Server**
 
     In the server directory, start the Express.js server:
 
-    bash
+    ```bash
     npm start
-    
+    ```
 
     The server will be running on http://localhost:7001.
 
-6. *Start the Client*
+6. **Start the Client**
 
     In a new terminal window, navigate to the client directory and start the React application:
 
-    bash
+    ```bash
     cd client
     npm start
-    
+    ```
 
     The client will be running on http://localhost:3000.
 
 ## Additional Notes
-- *Environment Variables:* Currently, all configuration values (e.g., MongoDB URL) are hardcoded. For a production setup, it is recommended to use environment variables for better security and flexibility.
+- **Environment Variables:** Currently, all configuration values (e.g., MongoDB URL) are hardcoded. For a production setup, it is recommended to use environment variables for better security and flexibility.
 
-- *Dependencies:* Make sure all required dependencies are installed and up-to-date.
+- **Dependencies:** Make sure all required dependencies are installed and up-to-date.
 
 
 - If you encounter issues feel free to reach me.
